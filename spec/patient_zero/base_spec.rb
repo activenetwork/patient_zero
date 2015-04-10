@@ -8,8 +8,7 @@ module PatientZero
 
     describe '.connection' do
       it 'news up a connection to the Viral Heat API' do
-        expect(Faraday).to receive(:new)
-        Base.connection
+        expect(Base.connection).to be_a Faraday::Connection
       end
     end
 
