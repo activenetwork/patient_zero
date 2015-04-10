@@ -7,6 +7,7 @@ require 'patient_zero/authorization'
 require 'patient_zero/organization'
 require 'patient_zero/source'
 require 'patient_zero/stream'
+require 'patient_zero/message'
 
 module PatientZero
   extend PatientZero::Configurable

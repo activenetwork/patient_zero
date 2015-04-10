@@ -1,18 +1,4 @@
 module PatientZero
-  class Message < Base
-    def initialize data
-      @data = data
-    end
-
-    def method_missing name, *args
-      if @data.has_key? name.to_s
-        @data.fetch name.to_s
-      else
-        super
-      end
-    end
-  end
-
   class Stream < Base
     attr_accessor :source_id, :token
 
