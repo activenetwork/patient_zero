@@ -1,13 +1,10 @@
 module PatientZero
   class Source < Base
     attr_accessor :id, :name, :platform, :token
-    def self.all token=Authorization.token
-      response = parse connection.get '/mobile/api/v1/sources/',
-        client_token: token
-      response['sources'].map do |source_attributes|
-        new source_attributes, token
-      end
-    end
+
+    SOURCE_TYPES = {'twitter' => Analytics::Twitter,
+                    'facebook' => Analytics::Facebook,
+                    'instagram' => Analytics::Instagram}
 
     def initialize attributes, token
       @id = attributes.fetch 'id'
@@ -18,6 +15,14 @@ module PatientZero
       @token = token
     end
 
+    def self.all token=Authorization.token
+      response = parse get '/mobile/api/v1/sources/',
+        client_token: token
+      response['sources'].map do |source_attributes|
+        new source_attributes, token
+      end
+    end
+
     def profile_id
       id.split('#').last
     end
@@ -26,11 +31,8 @@ module PatientZero
       Stream.new source_id: id, token: token
     end
 
-    def mentions
-      response = parse connection.get "/social/api/v2/monitoring/#{platform}/mentions",
-                                      api_key: PatientZero.api_key,
-                                      profile_id: profile_id
-      response['mentions']
+    def analytics
+      @analytics ||= Analytics.for_platform platform, token: token, source_id: id
     end
   end
 end
