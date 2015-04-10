@@ -3,6 +3,12 @@ Bundler.setup
 
 require 'patient_zero'
 
+module Helpers
+  def response_with_body body
+    double :response, body: body.to_json
+  end
+end
+
 RSpec.configure do |config|
-  # some (optional) config here
+  config.include Helpers
 end
