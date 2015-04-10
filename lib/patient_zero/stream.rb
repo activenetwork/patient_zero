@@ -15,7 +15,7 @@ module PatientZero
     end
 
     def get_data
-      response = parse connection.get "/mobile/api/v1/stream",
+      response = parse get "/mobile/api/v1/stream",
         social_object_uid: source_id,
         client_token: token
       @next_page = response['next_page']
@@ -24,7 +24,7 @@ module PatientZero
 
     def next_page
       if @next_page
-        response = parse connection.get @next_page
+        response = parse get @next_page
         @next_page = response['next_page']
         @stream_data += response['stream']
       else
