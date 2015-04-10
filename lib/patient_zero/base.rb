@@ -14,10 +14,26 @@ module PatientZero
       response
     end
 
+    def self.get *args
+      connection.get *args
+    end
+
+    def self.post *args
+      connection.post *args
+    end
+
     private
 
     def parse request
       self.class.parse request
+    end
+
+    def get *args
+      self.class.get *args
+    end
+
+    def post *args
+      self.class.post *args
     end
 
     def connection
