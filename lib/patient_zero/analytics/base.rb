@@ -11,15 +11,15 @@ module PatientZero
       end
 
       def name
-        @name ||= analytical_data['name']
+        analytical_data['name']
       end
 
       def platform
-        @platform ||= analytical_data['platform']
+        analytical_data['platform']
       end
 
       def messages
-        @messages ||= analytical_data['messages'].map{|message| Message.new message}
+        analytical_data['messages'].map{|message| Message.new message}
       end
 
       private

@@ -12,8 +12,7 @@ module PatientZero
     end
 
     def self.all token=Authorization.token
-      response = parse get '/mobile/api/v1/sources/',
-        client_token: token
+      response = parse get '/mobile/api/v1/sources/', client_token: token
       response['sources'].map do |source_attributes|
         new source_attributes, token
       end
