@@ -45,12 +45,5 @@ module PatientZero
         expect(source.profile_id).to eq '1234567890'
       end
     end
-
-    describe '#stream' do
-      it 'calls Stream.new and passes its own id and token' do
-        expect(Stream).to receive(:new).with(source_id: source.id, token: source.token)
-        source.stream
-      end
-    end
   end
 end

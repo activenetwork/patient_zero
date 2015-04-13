@@ -27,10 +27,6 @@ module PatientZero
       id.split('#').last
     end
 
-    def stream
-      Stream.new source_id: id, token: token
-    end
-
     def analytics
       @analytics ||= Analytics.for_platform platform, token: token, source_id: id
     end
