@@ -2,10 +2,6 @@ module PatientZero
   class Source < Base
     attr_accessor :id, :name, :platform, :token
 
-    SOURCE_TYPES = {'twitter' => Analytics::Twitter,
-                    'facebook' => Analytics::Facebook,
-                    'instagram' => Analytics::Instagram}
-
     def initialize attributes, token
       @id = attributes.fetch 'id'
       @name = attributes.fetch 'name'
