@@ -17,10 +17,10 @@ module PatientZero
     describe '.all' do
       before do
         allow(Authorization).to receive(:token).and_return token
-        allow(Base.connection).to receive(:get).with('/mobile/api/v1/sources/', anything).and_return response_with_body sources: sources_response_data
+        allow(Client.connection).to receive(:get).with('/mobile/api/v1/sources/', anything).and_return response_with_body sources: sources_response_data
       end
       it 'calls the sources index api' do
-        expect(Base.connection).to receive(:get).with('/mobile/api/v1/sources/', anything)
+        expect(Client.connection).to receive(:get).with('/mobile/api/v1/sources/', anything)
         Source.all
       end
       it 'calls Authorization.token if no token is passed in' do
@@ -34,7 +34,7 @@ module PatientZero
       end
       context 'when the associated organization token has no sources' do
         it 'returns an empty array' do
-          allow(Base.connection).to receive(:get).with('/mobile/api/v1/sources/', anything).and_return response_with_body sources: []
+          allow(Client.connection).to receive(:get).with('/mobile/api/v1/sources/', anything).and_return response_with_body sources: []
           expect(Source.all).to be_empty
         end
       end

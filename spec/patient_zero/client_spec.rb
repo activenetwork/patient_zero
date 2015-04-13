@@ -1,19 +1,19 @@
 require 'spec_helper'
 
 module PatientZero
-  describe Base do
+  describe Client do
     let(:token) { 'token-shmoken' }
     let(:body) { "{}" }
     let(:response) { double body: body }
 
     describe '.connection' do
       it 'news up a connection to the Viral Heat API' do
-        expect(Base.connection).to be_a Faraday::Connection
+        expect(Client.connection).to be_a Faraday::Connection
       end
     end
 
     describe '.parse' do
-      subject(:parse) { Base.parse response }
+      subject(:parse) { Client.parse response }
       context 'when the response contains an error key with nil' do
         let(:body) { "{\"status\":200,\"error\":null,\"user_token\":\"#{token}\"}" }
         it 'returns a hash of data' do

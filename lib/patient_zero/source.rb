@@ -1,5 +1,5 @@
 module PatientZero
-  class Source < Base
+  class Source < Client
     attr_accessor :id, :name, :platform, :token
 
     def initialize attributes, token
@@ -12,7 +12,7 @@ module PatientZero
     end
 
     def self.all token=Authorization.token
-      response = parse get '/mobile/api/v1/sources/', client_token: token
+      response = get '/mobile/api/v1/sources/', client_token: token
       response['sources'].map do |source_attributes|
         new source_attributes, token
       end

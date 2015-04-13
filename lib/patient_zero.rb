@@ -1,7 +1,7 @@
 require 'json'
 require 'faraday'
 require 'patient_zero/version'
-require 'patient_zero/base'
+require 'patient_zero/client'
 require 'patient_zero/configurable'
 require 'patient_zero/authorization'
 require 'patient_zero/organization'

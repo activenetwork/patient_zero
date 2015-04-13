@@ -1,5 +1,5 @@
 module PatientZero
-  class Base
+  class Client
     def self.connection
       @@connection ||= Faraday.new(PatientZero.url) do |faraday|
         faraday.request  :url_encoded
@@ -15,18 +15,14 @@ module PatientZero
     end
 
     def self.get *args
-      connection.get *args
+      parse connection.get *args
     end
 
     def self.post *args
-      connection.post *args
+      parse connection.post *args
     end
 
     private
-
-    def parse request
-      self.class.parse request
-    end
 
     def get *args
       self.class.get *args
@@ -34,10 +30,6 @@ module PatientZero
 
     def post *args
       self.class.post *args
-    end
-
-    def connection
-      self.class.connection
     end
   end
 end
