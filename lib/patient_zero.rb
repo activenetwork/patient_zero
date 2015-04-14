@@ -14,10 +14,6 @@ module PatientZero
   class Error < StandardError; end
 end
 
-PatientZero.configure do |config|
-  config.url = 'https://app.viralheat.com'
-end
-
 # Configuration Example
 # PatientZero.configure do |config|
 #   config.api_key = 'somethingsomethingdangerzone'
