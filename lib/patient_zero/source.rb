@@ -22,8 +22,8 @@ module PatientZero
       id.split('#').last
     end
 
-    def analytics
-      @analytics ||= Analytics.for_platform platform, token: token, source_id: id
+    def analytics start_date: nil, end_date: nil
+      @analytics ||= Analytics.for_platform platform, token: token, source_id: id, start_date: start_date, end_date: end_date
     end
   end
 end

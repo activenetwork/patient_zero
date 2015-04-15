@@ -3,11 +3,11 @@ module PatientZero
     class Base < Client
       attr_accessor :token, :source_id, :start_date, :end_date
 
-      def initialize token:, source_id:, start_date: '2015-03-01', end_date: '2015-04-01'
+      def initialize token:, source_id:, start_date: nil, end_date: nil
         @token = token
         @source_id = source_id
-        @start_date = start_date
-        @end_date = end_date
+        @end_date = end_date || Date.today.to_s
+        @start_date = start_date || Date.today.prev_day(7).to_s
       end
 
       def name
