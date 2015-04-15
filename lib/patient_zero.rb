@@ -1,6 +1,7 @@
 require 'json'
 require 'faraday'
 require 'patient_zero/version'
+require 'patient_zero/errors'
 require 'patient_zero/client'
 require 'patient_zero/configurable'
 require 'patient_zero/authorization'
@@ -11,7 +12,6 @@ require 'patient_zero/message'
 
 module PatientZero
   extend PatientZero::Configurable
-  class Error < StandardError; end
 end
 
 # Configuration Example
