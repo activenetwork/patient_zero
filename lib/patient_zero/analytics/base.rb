@@ -19,7 +19,7 @@ module PatientZero
       end
 
       def messages
-        analytical_data['messages'].map{|message| Message.new message}
+        analytical_data['messages'].map { |message| Message.for_platform message['platform'], message }
       end
 
       private
