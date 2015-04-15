@@ -18,6 +18,13 @@ module PatientZero
       end
     end
 
+    def self.find source_id, token=Authorization.token
+      response = get '/mobile/api/v1/sources/show/', id: source_id, client_token: token
+      new response['source'], token
+    rescue Error => e
+      raise NotFoundError, e
+    end
+
     def profile_id
       id.split('#').last
     end

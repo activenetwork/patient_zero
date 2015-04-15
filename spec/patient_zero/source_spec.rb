@@ -2,15 +2,16 @@ require 'spec_helper'
 
 module PatientZero
   describe Source do
+    let(:id) { '12345#instagram_account#1234567890' }
     let(:token) { 'token-shmoken' }
     let(:sources_response_data) { [source_response_data] }
     let(:source_response_data) do
-      {"id"=>"12345#instagram_account#1234567890",
-       "name"=>"account_name",
-       "is_invalid"=>false,
-       "is_tracked"=>true,
-       "platform"=>"instagram",
-       "delete_id"=>"12345#instagram_account#1234567890"}
+      {'id'=> id,
+       'name' => 'account_name',
+       'is_invalid' => false,
+       'is_tracked' => true,
+       'platform' => 'instagram',
+       'delete_id' => id }
     end
     let(:source) { Source.new source_response_data, token }
 
@@ -40,8 +41,34 @@ module PatientZero
       end
     end
 
+    describe '.find' do
+      before do
+        allow(Authorization).to receive(:token).and_return token
+        allow(Client.connection).to receive(:get).with('/mobile/api/v1/sources/show/', anything).and_return response_with_body source: source_response_data
+      end
+      it 'calls the sources show api' do
+        expect(Client.connection).to receive(:get).with('/mobile/api/v1/sources/show/', anything)
+        Source.find id
+      end
+      it 'calls Authorization.token if no token is passed in' do
+        expect(Authorization).to receive(:token)
+        Source.find id
+      end
+      context 'when the source exists' do
+        it 'returns a source' do
+          expect(Source.find(id).id).to eq source.id
+        end
+      end
+      context 'when no source exists' do
+        it 'throws an PatientZero::Error' do
+          allow(Client).to receive(:get).and_raise Error, 'The source could not be found. Please check your inputs.'
+          expect{ Source.find id }.to raise_error PatientZero::NotFoundError
+        end
+      end
+    end
+
     describe '#profile_id' do
-      it 'retuqrns the number at the end of the id' do
+      it 'returns the number at the end of the id' do
         expect(source.profile_id).to eq '1234567890'
       end
     end
