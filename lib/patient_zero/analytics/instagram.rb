@@ -1,24 +1,12 @@
 module PatientZero
   module Analytics
     class Instagram < Base
-      def posts
-        analytical_data[:total_posts]
+      def engagements
+        @engagements ||= messages.reduce(0) { |sum, message| sum + message.engagements }
       end
 
-      def likes
-        analytical_data[:total_likes]
-      end
-
-      def comments
-        analytical_data[:total_comments]
-      end
-
-      def followers
-        analytical_data[:total_followers]
-      end
-
-      def following
-        analytical_data[:total_following]
+      def impressions
+        @impressions ||= messages.reduce(0) { |sum, message| sum + message.impressions }
       end
     end
   end

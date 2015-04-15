@@ -72,5 +72,12 @@ module PatientZero
         expect(source.profile_id).to eq '1234567890'
       end
     end
+
+    describe '#analytics' do
+      it 'calls Analytics.for_platorm to create an analytics object' do
+        expect(Analytics).to receive(:for_platform).with(source.platform, { token: source.token, source_id: source.id, start_date: nil, end_date: nil })
+        source.analytics
+      end
+    end
   end
 end
