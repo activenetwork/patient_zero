@@ -1,5 +1,5 @@
 module PatientZero
-  class Organization < Base
+  class Organization < Client
     attr_accessor :id, :name, :avatar
 
     def initialize attributes
@@ -9,8 +9,7 @@ module PatientZero
     end
 
     def self.all
-      response = parse connection.get 'mobile/api/v1/organizations', client_token: Authorization.token
-      binding.pry
+      response = get '/mobile/api/v1/organizations', client_token: Authorization.token
       response['organizations'].map do |organization_attributes|
         new organization_attributes
       end
@@ -21,7 +20,7 @@ module PatientZero
     end
 
     def token
-      response = parse connection.get "mobile/api/v1/organizations/#{id}/switch", client_token: Authorization.token
+      response = get "/mobile/api/v1/organizations/#{id}/switch", client_token: Authorization.token
       response['user_token']
     end
   end
