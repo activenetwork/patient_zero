@@ -39,7 +39,7 @@ module PatientZero
         end
         context 'when there are messages' do
           it 'returns an array of messages' do
-            expect(analytics_base.messages.first).to be
+            expect(analytics_base.messages.first).to be_a Message::Facebook
           end
         end
         context 'when there are no messages' do
