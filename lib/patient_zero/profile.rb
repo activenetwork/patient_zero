@@ -1,5 +1,7 @@
 module PatientZero
   class Profile < Client
+    CATEGORIES = ['General', 'Brand', 'Television', 'Movies', 'Music', 'Person', 'Sports', 'Politics', 'Topic']
+
     attr_accessor :id, :expression, :name, :category
 
     def initialize attributes
