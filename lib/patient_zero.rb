@@ -9,6 +9,7 @@ require 'patient_zero/organization'
 require 'patient_zero/analytics'
 require 'patient_zero/source'
 require 'patient_zero/message'
+require 'patient_zero/profile'
 
 module PatientZero
   extend PatientZero::Configurable
