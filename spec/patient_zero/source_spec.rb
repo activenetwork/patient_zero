@@ -48,21 +48,17 @@ module PatientZero
       end
       it 'calls the sources show api' do
         expect(Client.connection).to receive(:get).with('/mobile/api/v1/sources/show/', anything)
-        Source.find id
-      end
-      it 'calls Authorization.token if no token is passed in' do
-        expect(Authorization).to receive(:token)
-        Source.find id
+        Source.find id, token
       end
       context 'when the source exists' do
         it 'returns a source' do
-          expect(Source.find(id).id).to eq source.id
+          expect(Source.find(id, token).id).to eq source.id
         end
       end
       context 'when no source exists' do
         it 'throws an PatientZero::Error' do
           allow(Client).to receive(:get).and_raise Error, 'The source could not be found. Please check your inputs.'
-          expect{ Source.find id }.to raise_error PatientZero::NotFoundError
+          expect{ Source.find id, token }.to raise_error PatientZero::NotFoundError
         end
       end
     end
