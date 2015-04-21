@@ -60,5 +60,20 @@ module PatientZero
         expect(Profile.create(profile_data)).to be_a Profile
       end
     end
+    
+    describe '.update' do
+      let(:params) { {id: 1} } 
+      let(:profile_response) { response_with_body profile: profile_data }
+      before { allow(Client.connection).to receive(:put).with("/social/api/v2/monitoring/profiles/#{params[:id]}", anything) { profile_response } }
+
+      it 'calls the profiles api endpoint' do
+        expect(Client.connection).to receive(:put).with("/social/api/v2/monitoring/profiles/#{params[:id]}", anything)
+        Profile.update params
+      end
+
+      it 'returns a Profile object' do
+        expect(Profile.update(params)).to be_a Profile
+      end
+    end    
   end
 end

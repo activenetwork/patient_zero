@@ -22,6 +22,10 @@ module PatientZero
       parse connection.post *args
     end
 
+    def self.put *args
+      parse connection.put *args
+    end
+    
     private
 
     def get *args
@@ -30,6 +34,10 @@ module PatientZero
 
     def post *args
       self.class.post *args
+    end
+
+    def put *args
+      self.class.put *args
     end
   end
 end

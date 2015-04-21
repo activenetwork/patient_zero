@@ -27,5 +27,10 @@ module PatientZero
       response = post '/social/api/v2/monitoring/profiles', api_key: PatientZero.api_key, profile: params
       new response['profile']
     end
+
+    def self.update params={}
+      response = put "/social/api/v2/monitoring/profiles/#{params[:id]}", api_key: PatientZero.api_key, profile: params
+      new response['profile']
+    end
   end
 end
