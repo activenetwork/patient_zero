@@ -9,6 +9,10 @@ module PatientZero
         page_impressions + message_impressions
       end
 
+      def impressions_by_gender
+        analytical_data['impressions_by_genders']
+      end
+
       private
 
       def message_impressions
