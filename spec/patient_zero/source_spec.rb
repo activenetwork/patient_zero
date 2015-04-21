@@ -18,10 +18,10 @@ module PatientZero
     describe '.all' do
       before do
         allow(Authorization).to receive(:token).and_return token
-        allow(Client.connection).to receive(:get).with('/mobile/api/v1/sources/', anything).and_return response_with_body sources: sources_response_data
+        allow(Source.connection).to receive(:get).with('/mobile/api/v1/sources/', anything).and_return response_with_body sources: sources_response_data
       end
       it 'calls the sources index api' do
-        expect(Client.connection).to receive(:get).with('/mobile/api/v1/sources/', anything)
+        expect(Source.connection).to receive(:get).with('/mobile/api/v1/sources/', anything)
         Source.all
       end
       it 'calls Authorization.token if no token is passed in' do
@@ -35,7 +35,7 @@ module PatientZero
       end
       context 'when the associated organization token has no sources' do
         it 'returns an empty array' do
-          allow(Client.connection).to receive(:get).with('/mobile/api/v1/sources/', anything).and_return response_with_body sources: []
+          allow(Source.connection).to receive(:get).with('/mobile/api/v1/sources/', anything).and_return response_with_body sources: []
           expect(Source.all).to be_empty
         end
       end
@@ -44,10 +44,10 @@ module PatientZero
     describe '.find' do
       before do
         allow(Authorization).to receive(:token).and_return token
-        allow(Client.connection).to receive(:get).with('/mobile/api/v1/sources/show/', anything).and_return response_with_body source: source_response_data
+        allow(Source.connection).to receive(:get).with('/mobile/api/v1/sources/show/', anything).and_return response_with_body source: source_response_data
       end
       it 'calls the sources show api' do
-        expect(Client.connection).to receive(:get).with('/mobile/api/v1/sources/show/', anything)
+        expect(Source.connection).to receive(:get).with('/mobile/api/v1/sources/show/', anything)
         Source.find id, token
       end
       context 'when the source exists' do
@@ -57,7 +57,7 @@ module PatientZero
       end
       context 'when no source exists' do
         it 'throws an PatientZero::Error' do
-          allow(Client).to receive(:get).and_raise Error, 'The source could not be found. Please check your inputs.'
+          allow(Source).to receive(:get).and_raise Error, 'The source could not be found. Please check your inputs.'
           expect{ Source.find id, token }.to raise_error PatientZero::NotFoundError
         end
       end

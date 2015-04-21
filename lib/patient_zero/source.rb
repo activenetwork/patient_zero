@@ -1,5 +1,7 @@
 module PatientZero
-  class Source < Client
+  class Source
+    include Client
+
     attr_accessor :id, :name, :platform, :token
 
     def initialize attributes, token

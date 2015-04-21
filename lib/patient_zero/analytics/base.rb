@@ -1,6 +1,8 @@
 module PatientZero
   module Analytics
-    class Base < Client
+    class Base
+      include Client
+
       attr_accessor :token, :source_id, :start_date, :end_date
 
       def initialize token:, source_id:, start_date: nil, end_date: nil

@@ -5,9 +5,9 @@ module PatientZero
     describe '.token' do
       let(:token) { 'token-shmoken' }
       let(:authorization_response) { response_with_body user_token: token }
-      before{ allow(Client.connection).to receive(:post).with('/mobile/api/v1/user/login', anything).and_return authorization_response }
+      before{ allow(Authorization.connection).to receive(:post).with('/mobile/api/v1/user/login', anything).and_return authorization_response }
       it 'calls the login api endpoint' do
-        expect(Client.connection).to receive(:post).with('/mobile/api/v1/user/login', anything)
+        expect(Authorization.connection).to receive(:post).with('/mobile/api/v1/user/login', anything)
         Authorization.token
       end
       context 'when email and password are correct' do
