@@ -1,6 +1,6 @@
 module PatientZero
   module Configurable
-    attr_accessor :url, :api_key, :email, :password
+    attr_accessor :url, :api_key, :email, :password, :connection
 
     def self.extended(base)
       base.reset

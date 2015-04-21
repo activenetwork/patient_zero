@@ -10,11 +10,11 @@ module PatientZero
       let(:token) { 'token-shmoken' }
       let(:analytical_data) { { 'stats' => [ { 'id' => source_id, 'platform' => platform, 'name' => name, 'messages' => messages } ] } }
       subject(:analytics_base) { Base.new token: token, source_id: source_id }
-      before { allow(Client).to receive(:get).with('/mobile/api/v1/analytics', anything).and_return analytical_data }
+      before { allow(analytics_base).to receive(:get).with('/mobile/api/v1/analytics', anything).and_return analytical_data }
 
       describe '#name' do
         it 'calls the analytics API endpoint' do
-          expect(Client).to receive(:get).with('/mobile/api/v1/analytics', anything)
+          expect(analytics_base).to receive(:get).with('/mobile/api/v1/analytics', anything)
           analytics_base.name
         end
         it 'pulls the name from the analytical_data hash' do
@@ -24,7 +24,7 @@ module PatientZero
 
       describe '#platform' do
         it 'calls the analytics API endpoint' do
-          expect(Client).to receive(:get).with('/mobile/api/v1/analytics', anything)
+          expect(analytics_base).to receive(:get).with('/mobile/api/v1/analytics', anything)
           analytics_base.name
         end
         it 'pulls the platform from the analytical_data hash' do
@@ -34,7 +34,7 @@ module PatientZero
 
       describe '#messages' do
         it 'calls the analytics API endpoint' do
-          expect(Client).to receive(:get).with('/mobile/api/v1/analytics', anything)
+          expect(analytics_base).to receive(:get).with('/mobile/api/v1/analytics', anything)
           analytics_base.name
         end
         context 'when there are messages' do
