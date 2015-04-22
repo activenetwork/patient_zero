@@ -21,10 +21,10 @@ module PatientZero
 
     describe '.all' do
       let(:profile_response) { response_with_body profiles: profiles }
-      before { allow(Client.connection).to receive(:get).with('/social/api/v2/monitoring/profiles', anything) { profile_response } }
+      before { allow(Profile.connection).to receive(:get).with('/social/api/v2/monitoring/profiles', anything) { profile_response } }
 
       it 'calls the profiles api endpoint' do
-        expect(Client.connection).to receive(:get).with('/social/api/v2/monitoring/profiles', anything)
+        expect(Profile.connection).to receive(:get).with('/social/api/v2/monitoring/profiles', anything)
         Profile.all
       end
 
@@ -49,10 +49,10 @@ module PatientZero
 
     describe '.create' do
       let(:profile_response) { response_with_body profile: profile_data }
-      before { allow(Client.connection).to receive(:post).with('/social/api/v2/monitoring/profiles', anything) { profile_response } }
+      before { allow(Profile.connection).to receive(:post).with('/social/api/v2/monitoring/profiles', anything) { profile_response } }
 
       it 'calls the profiles api endpoint' do
-        expect(Client.connection).to receive(:post).with('/social/api/v2/monitoring/profiles', anything)
+        expect(Profile.connection).to receive(:post).with('/social/api/v2/monitoring/profiles', anything)
         Profile.create profile_data
       end
 
@@ -64,10 +64,10 @@ module PatientZero
     describe '.update' do
       let(:params) { {id: 1} }
       let(:profile_response) { response_with_body profile: profile_data }
-      before { allow(Client.connection).to receive(:put).with("/social/api/v2/monitoring/profiles/#{params[:id]}", anything) { profile_response } }
+      before { allow(Profile.connection).to receive(:put).with("/social/api/v2/monitoring/profiles/#{params[:id]}", anything) { profile_response } }
 
       it 'calls the profiles api endpoint' do
-        expect(Client.connection).to receive(:put).with("/social/api/v2/monitoring/profiles/#{params[:id]}", anything)
+        expect(Profile.connection).to receive(:put).with("/social/api/v2/monitoring/profiles/#{params[:id]}", anything)
         Profile.update params
       end
 

@@ -1,5 +1,6 @@
 module PatientZero
-  class Organization < Client
+  class Organization
+    include Client
     attr_accessor :id, :name, :avatar
 
     def initialize attributes

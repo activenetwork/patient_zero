@@ -20,10 +20,10 @@ module PatientZero
     describe '.all' do
       let(:organizations) { [organization] }
       let(:organizations_response) { response_with_body organizations: organizations_response_data }
-      before { allow(Client.connection).to receive(:get).with('/mobile/api/v1/organizations', anything) { organizations_response } }
+      before { allow(Organization.connection).to receive(:get).with('/mobile/api/v1/organizations', anything) { organizations_response } }
 
       it 'calls the organizations api endpoint' do
-        expect(Client.connection).to receive(:get).with('/mobile/api/v1/organizations', anything)
+        expect(Organization.connection).to receive(:get).with('/mobile/api/v1/organizations', anything)
         Organization.all
       end
 
@@ -52,10 +52,10 @@ module PatientZero
     describe '#token' do
       let(:organization_specific_token) { 'organization-token' }
       let(:switch_response) { response_with_body user_token: organization_specific_token }
-      before { allow(Client.connection).to receive(:get).with("/mobile/api/v1/organizations/#{id}/switch", anything).and_return switch_response }
+      before { allow(Organization.connection).to receive(:get).with("/mobile/api/v1/organizations/#{id}/switch", anything).and_return switch_response }
 
       it 'calls the organization switch api endpoint' do
-        expect(Client.connection).to receive(:get).with("/mobile/api/v1/organizations/#{id}/switch", anything)
+        expect(Organization.connection).to receive(:get).with("/mobile/api/v1/organizations/#{id}/switch", anything)
         organization.token
       end
 
