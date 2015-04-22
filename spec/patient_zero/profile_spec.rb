@@ -35,10 +35,10 @@ module PatientZero
 
     describe '.find' do
       let(:profile_response) { response_with_body profiles: [profile_data] }
-      before { allow(Client.connection).to receive(:get).with("/social/api/v2/monitoring/profiles/#{id}", anything) { profile_response } }
+      before { allow(Profile.connection).to receive(:get).with("/social/api/v2/monitoring/profiles/#{id}", anything) { profile_response } }
 
       it 'calls the profiles api endpoint' do
-        expect(Client.connection).to receive(:get).with("/social/api/v2/monitoring/profiles/#{id}", anything)
+        expect(Profile.connection).to receive(:get).with("/social/api/v2/monitoring/profiles/#{id}", anything)
         Profile.find id
       end
 
