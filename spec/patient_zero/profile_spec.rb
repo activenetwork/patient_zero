@@ -34,7 +34,7 @@ module PatientZero
     end
 
     describe '.find' do
-      let(:profile_response) { response_with_body profiles: [profile_data] }
+      let(:profile_response) { response_with_body profile: profile_data }
       before { allow(Profile.connection).to receive(:get).with("/social/api/v2/monitoring/profiles/#{id}", anything) { profile_response } }
 
       it 'calls the profiles api endpoint' do
