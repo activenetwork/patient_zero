@@ -1,5 +1,7 @@
 module PatientZero
-  class Profile < Client
+  class Profile
+    include Client
+
     CATEGORIES = ['General', 'Brand', 'Television', 'Movies', 'Music', 'Person', 'Sports', 'Politics', 'Topic']
 
     attr_accessor :id, :expression, :name, :category
@@ -19,7 +21,7 @@ module PatientZero
     end
 
     def self.find id
-      response = get '/social/api/v2/monitoring/profiles', api_key: PatientZero.api_key, id: id
+      response = get "/social/api/v2/monitoring/profiles/#{id}", api_key: PatientZero.api_key
       new response['profiles'].first
     end
 
