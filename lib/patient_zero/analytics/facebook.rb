@@ -9,8 +9,21 @@ module PatientZero
         page_impressions + message_impressions
       end
 
+      def impressions_by_city
+        analytical_data.fetch("impressions_by_cities").each_with_object({}) do |city, cities|
+          cities[city['title']] = city['count']
+        end
+      end
+
+      def impressions_by_age
+        analytical_data.fetch('impressions_by_ages',[]).first.to_h.fetch('values',{})
+      end
+
       def impressions_by_gender
-        analytical_data['impressions_by_genders']
+        gender_stats = analytical_data['impressions_by_genders']
+        { female:  gender_stats.fetch('F', 0),
+          male:    gender_stats.fetch('M', 0),
+          unknown: gender_stats.fetch('U', 0) }
       end
 
       private
