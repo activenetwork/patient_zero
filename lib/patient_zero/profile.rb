@@ -22,7 +22,7 @@ module PatientZero
 
     def self.find id
       response = get "/social/api/v2/monitoring/profiles/#{id}", api_key: PatientZero.api_key
-      new response['profiles'].first
+      new response['profile']
     end
 
     def self.create params={}
