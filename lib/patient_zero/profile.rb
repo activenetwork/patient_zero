@@ -21,7 +21,7 @@ module PatientZero
     end
 
     def self.find id
-      response = get '/social/api/v2/monitoring/profiles', api_key: PatientZero.api_key, id: id
+      response = get "/social/api/v2/monitoring/profiles/#{id}", api_key: PatientZero.api_key
       new response['profiles'].first
     end
 
