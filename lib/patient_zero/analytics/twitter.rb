@@ -10,7 +10,7 @@ module PatientZero
       end
 
       def reach
-        @reach ||= (0.12 * analytical_data['followers']).round
+        @reach ||= (0.12 * analytical_data['followers'].to_i).round
       end
     end
   end
