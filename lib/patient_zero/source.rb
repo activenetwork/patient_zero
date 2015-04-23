@@ -32,6 +32,18 @@ module PatientZero
       id.split('#').last
     end
 
+    def social_type
+      id.scan(/\d+#(\w+)#\d+/).flatten.first
+    end
+
+    def parent
+      if delete_id == id
+        self
+      else
+        Source.find delete_id, token
+      end
+    end
+
     def analytics start_date: nil, end_date: nil
       @analytics ||= {}
       @analytics["#{start_date}#{end_date}"] ||= Analytics.for_platform platform, token: token, source_id: id, start_date: start_date, end_date: end_date
