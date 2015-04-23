@@ -14,7 +14,8 @@ module PatientZero
       end
       let(:messages) { [ message ] }
       let(:token) { 'token-shmoken' }
-      let(:analytical_data) { { 'messages' => messages, 'total_impressions' => 13 } }
+      let(:followers) { 35 }
+      let(:analytical_data) { { 'messages' => messages, 'total_impressions' => 13, 'followers' => followers } }
       let(:twitter_analytics) { Twitter.new token: token, source_id: source_id }
       before{ allow(twitter_analytics).to receive(:analytical_data).and_return analytical_data }
 
@@ -27,6 +28,12 @@ module PatientZero
       describe '#engagements' do
         it 'returns the sum of retweets, favorites, and clicks for all messages' do
           expect(twitter_analytics.engagements).to eq 20
+        end
+      end
+
+      describe '#reach' do
+        it 'returns 12% of the number of follers, rounded to the nearest whole' do
+          expect(twitter_analytics.reach).to eq (followers * 0.12).round
         end
       end
     end
