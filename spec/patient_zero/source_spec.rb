@@ -63,9 +63,9 @@ module PatientZero
       end
     end
 
-    describe '#profile_id' do
+    describe '#platform_id' do
       it 'returns the number at the end of the id' do
-        expect(source.profile_id).to eq '1234567890'
+        expect(source.platform_id).to eq '1234567890'
       end
     end
 

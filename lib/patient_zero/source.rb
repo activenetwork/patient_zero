@@ -28,7 +28,7 @@ module PatientZero
       raise NotFoundError, e
     end
 
-    def profile_id
+    def platform_id
       id.split('#').last
     end
 
