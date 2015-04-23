@@ -2,7 +2,7 @@ module PatientZero
   class Source
     include Client
 
-    attr_accessor :id, :name, :platform, :token
+    attr_accessor :id, :name, :platform, :token, :delete_id
 
     def initialize attributes, token
       @id = attributes.fetch 'id'
@@ -10,6 +10,7 @@ module PatientZero
       @invalid = attributes.fetch 'is_invalid'
       @tracked = attributes.fetch 'is_tracked'
       @platform = attributes.fetch 'platform'
+      @delete_id = attributes.fetch 'delete_id'
       @token = token
     end
 
