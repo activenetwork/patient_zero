@@ -2,28 +2,28 @@ module PatientZero
   class Source
     include Client
 
-    attr_accessor :id, :name, :platform, :token, :delete_id
+    attr_accessor :id, :name, :platform, :token, :delete_id, :token
 
-    def initialize attributes, token
+    def initialize attributes
       @id = attributes.fetch 'id'
       @name = attributes.fetch 'name'
       @invalid = attributes.fetch 'is_invalid'
       @tracked = attributes.fetch 'is_tracked'
       @platform = attributes.fetch 'platform'
       @delete_id = attributes.fetch 'delete_id'
-      @token = token
+      @token = attributes.fetch 'token'
     end
 
     def self.all token=Authorization.token
       response = get '/mobile/api/v1/sources/', client_token: token
       response['sources'].map do |source_attributes|
-        new source_attributes, token
+        new source_attributes.merge('token' => token)
       end
     end
 
     def self.find source_id, token
       response = get '/mobile/api/v1/sources/show/', id: source_id, client_token: token
-      new response['source'], token
+      new response['source'].merge('token' => token)
     rescue Error => e
       raise NotFoundError, e
     end
