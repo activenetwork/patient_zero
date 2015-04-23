@@ -15,7 +15,7 @@ module PatientZero
        'platform' => 'facebook',
        'delete_id' => delete_id }
     end
-    let(:source) { Source.new source_response_data, token }
+    let(:source) { Source.new source_response_data.merge('token' => token) }
 
     describe '.all' do
       before do
