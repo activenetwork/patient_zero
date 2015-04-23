@@ -4,6 +4,7 @@ module PatientZero
   module Analytics
     describe Facebook do
       let(:source_id) { "12345##{platform}#1234567890" }
+      let(:token) { 'token-shmoken' }
       let(:platform) { 'facebook' }
       let(:message) do
         { 'platform' => 'FB',
@@ -14,22 +15,19 @@ module PatientZero
           'clicks' => 38 }
       end
       let(:messages) { [ message ] }
-      let(:page_impressions) do
-        [ { 'key'=>'Total',
-            'values'=>
-            { '2010-10-10'=> 99 } } ]
-      end
-      let(:age_data) { {"13-17"=>14_000, "18-24"=>240_000, "25-34"=>650_000, "35-44"=>660_000, "45-54"=>380_000, "55-64"=>170_000, "65+"=>93_000} }
+      let(:page_impressions) { [ { 'key'=>'Total', 'values'=> { '2010-10-10'=> 99 } } ] }
       let(:impressions_by_city) { [{"title"=>"Atlanta, GA", "count"=>16_000}, {"title"=>"Los Angeles, CA", "count"=>15_000}, {"title"=>"San Diego, CA", "count"=>14_000}] }
       let(:impressions_by_age) { [{"key"=>"Users", "values"=>age_data}] }
       let(:impressions_by_gender) { {"F"=>100_000, "M"=>70_000, "U"=>10_000} }
-      let(:token) { 'token-shmoken' }
+      let(:age_data) { {"13-17"=>14_000, "18-24"=>240_000, "25-34"=>650_000, "35-44"=>660_000, "45-54"=>380_000, "55-64"=>170_000, "65+"=>93_000} }
+      let(:total_reach) { [ { 'key'=>'Total Reach', 'values'=> { '2010-10-10'=> 4567 } } ] }
       let(:analytical_data) do
         { 'messages' => messages,
           'page_impressions' => page_impressions,
           'impressions_by_cities' => impressions_by_city,
           'impressions_by_ages' => impressions_by_age,
-          'impressions_by_genders' => impressions_by_gender }
+          'impressions_by_genders' => impressions_by_gender,
+          'total_reach' => total_reach }
       end
       let(:facebook_analytics) { Facebook.new token: token, source_id: source_id }
       before{ allow(facebook_analytics).to receive(:analytical_data).and_return analytical_data }
@@ -70,6 +68,12 @@ module PatientZero
       describe '#engagements' do
         it 'returns the sum of likes, comments, shares, and clicks' do
           expect(facebook_analytics.engagements).to eq 160
+        end
+      end
+
+      describe '#reach' do
+        it 'returns the sum of total_reach for each day' do
+          expect(facebook_analytics.reach).to eq 4567
         end
       end
     end
