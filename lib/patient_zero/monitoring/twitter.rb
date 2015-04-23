@@ -22,11 +22,9 @@ module PatientZero
       end
 
       def statistical_data
-        fields = ['gender', 'top_countries', 'top_cities', 'top_influencers_by_impact', 'top_influencers_by_volume', 'top_mentions']
         @statistical_data ||= get '/social/api/monitoring/twitter/stats', api_key: PatientZero.api_key,
                                                                           profile_id: profile_id,
-                                                                          days: days,
-                                                                          fields: fields
+                                                                          days: days
         @statistical_data['stats']
       end
     end
