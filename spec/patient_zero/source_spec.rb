@@ -2,7 +2,9 @@ require 'spec_helper'
 
 module PatientZero
   describe Source do
-    let(:id) { '12345#instagram_account#1234567890' }
+    let(:id) { "12345##{social_type}#1234567890" }
+    let(:delete_id) { id }
+    let(:social_type) { 'facebook_account' }
     let(:token) { 'token-shmoken' }
     let(:sources_response_data) { [source_response_data] }
     let(:source_response_data) do
@@ -10,8 +12,8 @@ module PatientZero
        'name' => 'account_name',
        'is_invalid' => false,
        'is_tracked' => true,
-       'platform' => 'instagram',
-       'delete_id' => id }
+       'platform' => 'facebook',
+       'delete_id' => delete_id }
     end
     let(:source) { Source.new source_response_data, token }
 
@@ -63,9 +65,34 @@ module PatientZero
       end
     end
 
-    describe '#profile_id' do
+    describe '#platform_id' do
       it 'returns the number at the end of the id' do
-        expect(source.profile_id).to eq '1234567890'
+        expect(source.platform_id).to eq '1234567890'
+      end
+    end
+
+    describe '#social_type' do
+      it 'returns the source type' do
+        expect(source.social_type).to eq social_type
+      end
+    end
+
+    describe '#parent' do
+      context 'when the delete_id is the same as the id' do
+        it 'returns self' do
+          expect(source.parent).to eq source
+        end
+      end
+      context 'when the delete_id is not the same as the id' do
+        let(:delete_id) { '12345#facebook_page#1234567890' }
+        before { allow(Source).to receive(:find).and_return double :parent_source, id: delete_id }
+        it 'calls Source.find' do
+          expect(Source).to receive(:find)
+          source.parent
+        end
+        it 'returns a source that is not the same as itself' do
+          expect(source.parent.id).to_not eq source.id
+        end
       end
     end
 

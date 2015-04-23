@@ -6,7 +6,13 @@ module PatientZero
       end
 
       def impressions
-        page_impressions + message_impressions
+        @impressions ||= page_impressions + message_impressions
+      end
+
+      def reach
+        @reach ||= analytical_data['total_reach'].find do |reach_hash|
+          reach_hash['key'] == 'Total Reach'
+        end['values'].each_value.reduce(:+)
       end
 
       def impressions_by_city
