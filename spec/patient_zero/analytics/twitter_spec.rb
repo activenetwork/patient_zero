@@ -32,8 +32,14 @@ module PatientZero
       end
 
       describe '#reach' do
-        it 'returns 12% of the number of follers, rounded to the nearest whole' do
+        it 'returns 12% of the number of followers, rounded to the nearest whole' do
           expect(twitter_analytics.reach).to eq (followers * 0.12).round
+        end
+      end
+
+      describe '#followers' do
+        it 'returns the number of followers from the analytical_data hash' do
+          expect(twitter_analytics.followers).to eq followers
         end
       end
     end
