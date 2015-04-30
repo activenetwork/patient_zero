@@ -16,6 +16,10 @@ module PatientZero
       def followers
         analytical_data['followers'].to_i
       end
+
+      def likes
+        analytical_data['total_favorites'].to_i
+      end
     end
   end
 end
