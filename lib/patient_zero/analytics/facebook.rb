@@ -44,6 +44,14 @@ module PatientZero
         end['values'].each_value.reduce(:+)
       end
 
+      def likes
+        analytical_data['total_likes'].to_i
+      end
+
+      def total_comments
+        messages.sum { |message| message.data['comments'] }
+      end
+
       private
 
       def message_impressions
