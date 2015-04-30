@@ -35,13 +35,13 @@ module PatientZero
       def organic_posts
         page_impressions.find do |impressions_hash|
           impressions_hash['key'] == 'Organic'
-        end['values'].each_value.sum
+        end['values'].each_value.reduce(:+)
       end
 
       def promoted_posts
         page_impressions.find do |impressions_hash|
           impressions_hash['key'] == 'Paid'
-        end['values'].each_value.sum
+        end['values'].each_value.reduce(:+)
       end
 
       private
