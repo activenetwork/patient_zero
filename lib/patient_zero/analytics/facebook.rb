@@ -33,15 +33,11 @@ module PatientZero
       end
 
       def organic_posts
-        page_impressions.find do |impressions_hash|
-          impressions_hash['key'] == 'Organic'
-        end['values'].each_value.reduce(:+)
+        find_impressions 'Organic'
       end
 
       def promoted_posts
-        page_impressions.find do |impressions_hash|
-          impressions_hash['key'] == 'Paid'
-        end['values'].each_value.reduce(:+)
+        find_impressions 'Paid'
       end
 
       def likes
@@ -63,8 +59,12 @@ module PatientZero
       end
 
       def total_page_impressions
+        find_impressions 'Total'
+      end
+
+      def find_impressions type
         page_impressions.find do |impressions_hash|
-          impressions_hash['key'] == 'Total'
+          impressions_hash['key'] == type
         end['values'].each_value.reduce(:+)
       end
     end
