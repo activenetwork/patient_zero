@@ -6,7 +6,7 @@ module PatientZero
       end
 
       def impressions
-        @impressions ||= page_impressions + message_impressions
+        @impressions ||= total_page_impressions + message_impressions
       end
 
       def reach
@@ -32,6 +32,22 @@ module PatientZero
           unknown: gender_stats.fetch('U', 0) }
       end
 
+      def organic_posts
+        find_impressions 'Organic'
+      end
+
+      def promoted_posts
+        find_impressions 'Paid'
+      end
+
+      def likes
+        analytical_data['total_likes'].to_i
+      end
+
+      def total_comments
+        messages.sum { |message| message.data['comments'] }
+      end
+
       private
 
       def message_impressions
@@ -39,8 +55,16 @@ module PatientZero
       end
 
       def page_impressions
-        analytical_data['page_impressions'].find do |impressions_hash|
-          impressions_hash['key'] == 'Total'
+        analytical_data['page_impressions']
+      end
+
+      def total_page_impressions
+        find_impressions 'Total'
+      end
+
+      def find_impressions type
+        page_impressions.find do |impressions_hash|
+          impressions_hash['key'] == type
         end['values'].each_value.reduce(:+)
       end
     end
