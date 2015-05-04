@@ -81,15 +81,15 @@ module PatientZero
         end
       end
 
-      describe '#organic_posts' do
+      describe '#organic_impressions' do
         it 'returns the sum of organic_posts' do
-          expect(facebook_analytics.organic_posts).to eq 100
+          expect(facebook_analytics.organic_impressions).to eq 100
         end
       end
 
-      describe '#promoted_posts' do
+      describe '#promoted_impressions' do
         it 'returns the sum of promoted_posts' do
-          expect(facebook_analytics.promoted_posts).to eq 101
+          expect(facebook_analytics.promoted_impressions).to eq 101
         end
       end
     end
