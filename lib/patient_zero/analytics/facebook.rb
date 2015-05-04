@@ -32,11 +32,11 @@ module PatientZero
           unknown: gender_stats.fetch('U', 0) }
       end
 
-      def organic_posts
+      def organic_impressions
         find_impressions 'Organic'
       end
 
-      def promoted_posts
+      def promoted_impressions
         find_impressions 'Paid'
       end
 
