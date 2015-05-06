@@ -49,6 +49,12 @@ module PatientZero
           end
         end
       end
+
+      describe '#total_posts' do
+        it 'returns the count of messages' do
+          expect(analytics_base.total_posts).to be 1
+        end
+      end
     end
   end
 end
