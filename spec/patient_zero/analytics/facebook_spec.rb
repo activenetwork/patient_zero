@@ -15,7 +15,11 @@ module PatientZero
           'clicks' => 38 }
       end
       let(:messages) { [ message ] }
-      let(:page_impressions) { [ { 'key'=>'Total', 'values'=> { '2010-10-10'=> 99 } } ] }
+      let(:page_impressions) do
+        [ { 'key'=>'Total', 'values'=> { '2010-10-10'=> 99 }},
+           { 'key'=>'Organic', 'values'=> { '2010-10-10'=> 100 }},
+           { 'key'=>'Paid', 'values'=> { '2010-10-10'=> 101 }}]
+      end
       let(:impressions_by_city) { [{"title"=>"Atlanta, GA", "count"=>16_000}, {"title"=>"Los Angeles, CA", "count"=>15_000}, {"title"=>"San Diego, CA", "count"=>14_000}] }
       let(:impressions_by_age) { [{"key"=>"Users", "values"=>age_data}] }
       let(:impressions_by_gender) { {"F"=>100_000, "M"=>70_000, "U"=>10_000} }
@@ -109,6 +113,18 @@ module PatientZero
       describe '#reach' do
         it 'returns the sum of total_reach for each day' do
           expect(facebook_analytics.reach).to eq 4567
+        end
+      end
+
+      describe '#organic_impressions' do
+        it 'returns the sum of organic_posts' do
+          expect(facebook_analytics.organic_impressions).to eq 100
+        end
+      end
+
+      describe '#promoted_impressions' do
+        it 'returns the sum of promoted_posts' do
+          expect(facebook_analytics.promoted_impressions).to eq 101
         end
       end
     end

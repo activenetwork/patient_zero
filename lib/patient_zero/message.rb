@@ -11,6 +11,8 @@ module PatientZero
 
     def self.for_platform platform, params={}
       SOURCE_TYPES[platform].new params
+    rescue NoMethodError
+      nil
     end
   end
 end

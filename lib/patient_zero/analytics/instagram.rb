@@ -8,6 +8,10 @@ module PatientZero
       def impressions
         @impressions ||= messages.reduce(0) { |sum, message| sum + message.impressions }
       end
+
+      def followers
+        analytical_data.fetch 'total_followers'
+      end
     end
   end
 end

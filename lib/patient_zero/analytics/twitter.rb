@@ -12,6 +12,14 @@ module PatientZero
       def reach
         @reach ||= (0.12 * analytical_data['followers'].to_i).round
       end
+
+      def followers
+        analytical_data['followers'].to_i
+      end
+
+      def likes
+        analytical_data['total_favorites'].to_i
+      end
     end
   end
 end
