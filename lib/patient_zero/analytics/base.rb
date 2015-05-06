@@ -24,6 +24,10 @@ module PatientZero
         analytical_data['messages'].map { |message| Message.for_platform message['platform'], message }
       end
 
+      def total_posts
+        messages.count
+      end
+
       private
 
       def analytical_data
