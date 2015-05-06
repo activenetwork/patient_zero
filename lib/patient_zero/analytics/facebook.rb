@@ -32,6 +32,25 @@ module PatientZero
           unknown: gender_stats.fetch('U', 0) }
       end
 
+      def page_likes_by_age_and_gender
+        data = analytical_data.fetch('likes_by_age_group',[])
+        female = data.find { |datum| datum.values.include? 'Females Users' }
+        male   = data.find { |datum| datum.values.include? 'Males Users' }
+        { female: female.to_h.fetch('values',{}),
+          male: male.to_h.fetch('values',{}) }
+      end
+
+      def page_likes_by_gender
+        gender_stats = analytical_data['likes_by_gender']
+        { female:  gender_stats.fetch('F', 0),
+          male:    gender_stats.fetch('M', 0),
+          unknown: gender_stats.fetch('U', 0) }
+      end
+
+      def total_page_likes
+        page_likes_by_gender.values.reduce(:+)
+      end
+
       private
 
       def message_impressions
