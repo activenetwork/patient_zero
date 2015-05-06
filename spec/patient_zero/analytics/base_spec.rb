@@ -6,7 +6,7 @@ module PatientZero
       let(:source_id) { "12345##{platform}#1234567890" }
       let(:name) { 'account_name' }
       let(:platform) { 'account_type' }
-      let(:messages) { [ { 'platform' => 'FB' } ] }
+      let(:messages) { [ { 'platform' => 'FB' }, { 'platform' => '??' } ] }
       let(:token) { 'token-shmoken' }
       let(:analytical_data) { { 'stats' => [ { 'id' => source_id, 'platform' => platform, 'name' => name, 'messages' => messages } ] } }
       subject(:analytics_base) { Base.new token: token, source_id: source_id }
