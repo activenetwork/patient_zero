@@ -10,7 +10,23 @@ module PatientZero
       end
 
       def followers
-        analytical_data.fetch 'total_followers'
+        analytical_data['total_followers'].to_i
+      end
+
+      def reach
+        nil
+      end
+
+      def impressions_by_city
+        {}
+      end
+
+      def likes
+        analytical_data['total_likes'].to_i
+      end
+
+      def total_comments
+        analytical_data['total_comments'].to_i
       end
     end
   end

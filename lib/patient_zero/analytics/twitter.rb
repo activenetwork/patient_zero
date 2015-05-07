@@ -2,7 +2,7 @@ module PatientZero
   module Analytics
     class Twitter < Base
       def impressions
-        analytical_data['total_impressions']
+        analytical_data['total_impressions'].to_i
       end
 
       def engagements
@@ -19,6 +19,14 @@ module PatientZero
 
       def likes
         analytical_data['total_favorites'].to_i
+      end
+
+      def impressions_by_city
+        {}
+      end
+
+      def total_comments
+        nil
       end
     end
   end
