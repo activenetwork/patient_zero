@@ -20,6 +20,22 @@ module PatientZero
       def likes
         analytical_data.fetch('total_likes').to_i
       end
+
+      def impressions_by_city
+        {}
+      end
+
+      def total_comments
+        nil
+      end
+
+      def impressions
+        nil
+      end
+
+      def reach
+        nil
+      end
     end
   end
 end

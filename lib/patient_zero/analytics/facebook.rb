@@ -67,6 +67,10 @@ module PatientZero
         messages.sum { |message| message.data['comments'] }
       end
 
+      def followers
+        nil
+      end
+
       private
 
       def message_impressions
