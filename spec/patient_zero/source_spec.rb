@@ -65,6 +65,29 @@ module PatientZero
       end
     end
 
+    describe '.creation_url' do
+      let(:platform) { 'facebook' }
+      let(:url) { 'http://something-something.dangerzone.com' }
+      let(:creation_url_response) { double :creation_url_response, headers: { location: url } }
+      before{ allow(Source.connection).to receive(:get).with("/mobile/api/v1/sources/#{platform}/authenticate", anything).and_return creation_url_response }
+      it 'calls the sources authentication api' do
+        expect(Source.connection).to receive(:get).with("/mobile/api/v1/sources/#{platform}/authenticate", anything)
+        Source.creation_url platform, token, 678
+      end
+      context 'when using a valid platform name' do
+        it 'returns the valid url' do
+          expect(Source.creation_url platform, token, 678).to eq url
+        end
+      end
+      context 'when using an invalid platform name' do
+        let(:platform) { 'myspace' }
+        let(:url) { '"https://app.viralheat.com?error=Invalid platform Myspace"' }
+        it 'raises an InvalidPlatformError' do
+          expect{Source.creation_url platform, token, 678}.to raise_error InvalidPlatformError
+        end
+      end
+    end
+
     describe '#platform_id' do
       it 'returns the number at the end of the id' do
         expect(source.platform_id).to eq '1234567890'
