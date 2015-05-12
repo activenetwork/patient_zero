@@ -68,7 +68,7 @@ module PatientZero
     describe '.creation_url' do
       let(:platform) { 'facebook' }
       let(:url) { 'http://something-something.dangerzone.com' }
-      let(:creation_url_response) { double :creation_url_response, headers: { location: url } }
+      let(:creation_url_response) { double :creation_url_response, headers: { 'location' => url } }
       before{ allow(Source.connection).to receive(:get).with("/mobile/api/v1/sources/#{platform}/authenticate", anything).and_return creation_url_response }
       it 'calls the sources authentication api' do
         expect(Source.connection).to receive(:get).with("/mobile/api/v1/sources/#{platform}/authenticate", anything)
