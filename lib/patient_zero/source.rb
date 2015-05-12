@@ -30,7 +30,7 @@ module PatientZero
 
     def self.creation_url platform, token=Authorization.token, reference_id=nil
       response = connection.get("/mobile/api/v1/sources/#{platform}/authenticate", client_token: token, reference_id: reference_id)
-      creation_url = response.headers.fetch :location
+      creation_url = response.headers.fetch 'location'
       raise InvalidPlatformError, creation_url.split('error=').last if creation_url.include? 'error'
       creation_url
     end
