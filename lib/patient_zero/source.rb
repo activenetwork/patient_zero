@@ -51,6 +51,13 @@ module PatientZero
       end
     end
 
+    def children
+      response = get '/mobile/api/v1/sources/linked_sources', social_object_uid: id, client_token: token
+      response['linked_sources'].map do |source_attributes|
+        Source.new(source_attributes.merge 'token' => token) unless source_attributes["id"] == id
+      end.compact
+    end
+
     def analytics start_date: nil, end_date: nil
       @analytics ||= {}
       @analytics["#{start_date}#{end_date}"] ||= Analytics.for_platform platform, token: token, source_id: id, start_date: start_date, end_date: end_date
