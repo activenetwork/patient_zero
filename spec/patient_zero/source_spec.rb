@@ -81,7 +81,7 @@ module PatientZero
       end
       context 'when using an invalid platform name' do
         let(:platform) { 'myspace' }
-        let(:url) { '"https://app.viralheat.com?error=Invalid platform Myspace"' }
+        let(:url) { 'https://app.viralheat.com?error=Invalid platform Myspace' }
         it 'raises an InvalidPlatformError' do
           expect{Source.creation_url platform, token, 678}.to raise_error InvalidPlatformError
         end
@@ -115,6 +115,36 @@ module PatientZero
         end
         it 'returns a source that is not the same as itself' do
           expect(source.parent.id).to_not eq source.id
+        end
+      end
+    end
+
+    describe '#children' do
+      let(:sources) do
+        [ {'id'=> id,
+           'name' => 'account_name',
+           'is_invalid' => false,
+           'is_tracked' => true,
+           'platform' => 'facebook',
+           'delete_id' => id },
+          {'id'=> 'source_id',
+           'name' => 'account_page',
+           'is_invalid' => false,
+           'is_tracked' => true,
+           'platform' => 'facebook',
+           'delete_id' => id } ]
+      end
+      let(:children_response) { response_with_body linked_sources: sources }
+      before{ allow(Source.connection).to receive(:get).with('/mobile/api/v1/sources/linked_sources', anything).and_return children_response }
+      context 'when the source has children' do
+        it 'returns an array of sources that does not contain itself' do
+          expect(source.children.count).to be 1
+        end
+      end
+      context 'when the source has no children' do
+        let(:sources) { [] }
+        it 'returns an empty array' do
+          expect(source.children).to be_empty
         end
       end
     end
