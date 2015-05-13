@@ -81,7 +81,7 @@ module PatientZero
       end
       context 'when using an invalid platform name' do
         let(:platform) { 'myspace' }
-        let(:url) { '"https://app.viralheat.com?error=Invalid platform Myspace"' }
+        let(:url) { 'https://app.viralheat.com?error=Invalid platform Myspace' }
         it 'raises an InvalidPlatformError' do
           expect{Source.creation_url platform, token, 678}.to raise_error InvalidPlatformError
         end
